@@ -1426,3 +1426,306 @@ body:hover .cursor-follower {
     color: #aaa;
     line-height: 1.8;
 }
+
+/* --- Simulator Hero --- */
+.simulator-hero {
+    padding: 10rem 4%;
+    background: #050505;
+    overflow: hidden;
+}
+
+.simulator-hero-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+#sim-hero-canvas {
+    width: 100%;
+    height: 600px;
+    background: radial-gradient(circle at center, #111 0%, #050505 70%);
+    border-radius: 4px;
+}
+
+.sim-hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sim-desc {
+    font-size: 1.1rem;
+    color: #888;
+    line-height: 1.8;
+    max-width: 500px;
+}
+
+.sim-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.sim-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.85rem;
+    color: #fff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.sim-feature::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--accent-orange);
+    border-radius: 50%;
+}
+
+.btn-launch-sim {
+    align-self: flex-start;
+    padding: 1.2rem 3rem;
+    background: linear-gradient(135deg, var(--accent-orange-light), var(--accent-orange), var(--accent-red));
+    border: none;
+    color: #fff;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    margin-top: 2rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-launch-sim:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(255, 69, 0, 0.4);
+}
+
+/* --- Simulator Overlay --- */
+.sim-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 2000;
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sim-overlay.active {
+    display: flex;
+}
+
+.sim-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 3rem;
+    color: #fff;
+    cursor: pointer;
+    z-index: 2010;
+    line-height: 1;
+    transition: transform 0.3s;
+}
+
+.sim-close:hover {
+    transform: rotate(90deg);
+}
+
+#sim-canvas-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- Mode Selection --- */
+.sim-mode-select {
+    position: relative;
+    z-index: 2005;
+    text-align: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(20px);
+}
+
+.mode-select-title {
+    font-family: var(--font-accent);
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+    margin-bottom: 4rem;
+}
+
+.mode-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.mode-card {
+    background: #111;
+    border: 1px solid #222;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: all 0.4s var(--transition-smooth);
+    cursor: pointer;
+}
+
+.mode-card:hover {
+    border-color: var(--accent-orange);
+    transform: translateY(-10px);
+}
+
+.mode-card.active {
+    border-color: var(--accent-orange);
+    background: #1a1a1a;
+}
+
+.mode-level {
+    font-size: 0.7rem;
+    color: #666;
+    letter-spacing: 2px;
+}
+
+.mode-card h3 {
+    font-family: var(--font-accent);
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+}
+
+.mode-card p {
+    font-size: 0.9rem;
+    color: #888;
+    line-height: 1.6;
+}
+
+.btn-start-mode {
+    margin-top: auto;
+    padding: 1rem;
+    background: transparent;
+    border: 1px solid #333;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.mode-card:hover .btn-start-mode {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+}
+
+.learner { border-top: 4px solid #4CAF50; }
+.intermediate { border-top: 4px solid #FFC107; }
+.expert { border-top: 4px solid #F44336; }
+
+/* --- HUD --- */
+.sim-hud {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2005;
+    padding: 3rem;
+    display: none; /* Shown when sim starts */
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hud-top, .hud-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.hud-item, .hud-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.hud-label {
+    font-size: 0.65rem;
+    color: #666;
+    letter-spacing: 2px;
+}
+
+.hud-value {
+    font-family: var(--font-accent);
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.hud-controls-hint {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 1px;
+}
+
+.hud-actions {
+    pointer-events: auto;
+}
+
+.hud-actions button {
+    padding: 0.8rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.hud-crash {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(244, 67, 54, 0.9);
+    padding: 3rem;
+    display: none;
+    pointer-events: auto;
+}
+
+.hud-crash h2 {
+    font-family: var(--font-accent);
+    margin-bottom: 2rem;
+}
+
+.hud-crash button {
+    padding: 1rem 2rem;
+    background: #fff;
+    border: none;
+    color: #000;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+    .simulator-hero-container {
+        grid-template-columns: 1fr;
+    }
+    .mode-cards {
+        grid-template-columns: 1fr;
+    }
+}

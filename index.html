@@ -286,7 +286,100 @@
                     currentIndex = (currentIndex + 1) % slides.length;
                     slider.style.transform = `translateX(-${currentIndex * 100}vw)`;
                 }
-                
+               
+    <!-- Simulator Hero Section -->
+    <section class="simulator-hero" id="simulator">
+        <div class="simulator-hero-container">
+            <div class="sim-hero-left reveal-up">
+                <div id="sim-hero-canvas"></div>
+            </div>
+            <div class="sim-hero-right reveal-up delay-1">
+                <div class="section-meta"><span>00_5</span><span>FLIGHT ACADEMY</span></div>
+                <h2 class="massive-text">VIRTUAL<br><span class="italic">COCKPIT</span></h2>
+                <p class="sim-desc">Experience the precision of SKY NEX flight systems in our high-fidelity WebGL simulator. Master the skies across three distinct difficulty modes.</p>
+                <div class="sim-features">
+                    <div class="sim-feature">
+                        <span>Real-time Physics</span>
+                    </div>
+                    <div class="sim-feature">
+                        <span>3 Difficulty Modes</span>
+                    </div>
+                    <div class="sim-feature">
+                        <span>Collision Mapping</span>
+                    </div>
+                </div>
+                <button class="btn-launch-sim" id="launchSimBtn">Launch Simulator</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulator Overlay (Full Screen) -->
+    <div class="sim-overlay" id="simOverlay">
+        <div class="sim-close" id="closeSimBtn">&times;</div>
+        
+        <!-- Mode Selection Screen -->
+        <div class="sim-mode-select" id="modeSelectScreen">
+            <h2 class="mode-select-title">SELECT FLIGHT MODE</h2>
+            <div class="mode-cards">
+                <div class="mode-card learner" data-mode="learner">
+                    <div class="mode-level">Level 01</div>
+                    <h3>LEARNER</h3>
+                    <p>Auto-stabilization, limited speed, and visual flight guides. Best for first-time pilots.</p>
+                    <button class="btn-start-mode">Start Training</button>
+                </div>
+                <div class="mode-card intermediate active" data-mode="intermediate">
+                    <div class="mode-level">Level 02</div>
+                    <h3>INTERMEDIATE</h3>
+                    <p>Moderate stabilization with light wind effects. Realistic handling for experienced pilots.</p>
+                    <button class="btn-start-mode">Start Flight</button>
+                </div>
+                <div class="mode-card expert" data-mode="expert">
+                    <div class="mode-level">Level 03</div>
+                    <h3>EXPERT</h3>
+                    <p>Full manual control. No stabilization. Maximum speed and physics-based momentum.</p>
+                    <button class="btn-start-mode">Launch Mission</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Simulator HUD -->
+        <div class="sim-hud" id="simHud">
+            <div class="hud-top">
+                <div class="hud-item">
+                    <span class="hud-label">BATTERY</span>
+                    <span class="hud-value" id="hud-battery">98%</span>
+                </div>
+                <div class="hud-item">
+                    <span class="hud-label">SIGNAL</span>
+                    <span class="hud-value">STRONG</span>
+                </div>
+            </div>
+            <div class="hud-bottom">
+                <div class="hud-telemetry">
+                    <div class="hud-stat">
+                        <span class="hud-label">ALTITUDE</span>
+                        <span class="hud-value"><span id="hud-alt">0.0</span> m</span>
+                    </div>
+                    <div class="hud-stat">
+                        <span class="hud-label">SPEED</span>
+                        <span class="hud-value"><span id="hud-speed">0.0</span> km/h</span>
+                    </div>
+                </div>
+                <div class="hud-controls-hint">
+                    WASD: MOVE | ARROWS: ALTITUDE | Q/E: ROTATE
+                </div>
+                <div class="hud-actions">
+                    <button id="resetSimBtn">RESET DRONE</button>
+                </div>
+            </div>
+            <div class="hud-crash" id="crashScreen">
+                <h2>DRONE CRASHED</h2>
+                <button id="restartAfterCrash">RESTART SIMULATION</button>
+            </div>
+        </div>
+
+        <div id="sim-canvas-container"></div>
+    </div>
                 // Set interval for 3 seconds (3000ms)
                 setInterval(slideToNext, 3000);
             });
@@ -362,6 +455,7 @@
 
     <script src="hero3d.js"></script>
     <script src="contact3d.js"></script>
+    <script src="simulator.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
