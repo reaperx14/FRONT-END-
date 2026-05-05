@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKY NEX Drones — Next-Gen Aerial Systems</title>
+    <meta name="description" content="SKY NEX Drones: Explore cutting-edge aerial cinematography and autonomous flight technology.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Inter:wght@300;400;500;700;900&family=Michroma&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- Film Grain Overlay -->
+    <div class="grain-overlay" aria-hidden="true"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-left">
+            <a href="#" class="nav-logo">SKY NEX®</a>
+        </div>
+        <div class="nav-center">
+            <a href="#hero" class="nav-link" data-section="hero">HOME</a>
+            <a href="#fleet" class="nav-link" data-section="fleet">FLEET</a>
+            <a href="#specs" class="nav-link" data-section="specs">SPECS</a>
+            <a href="#gallery" class="nav-link" data-section="gallery">GALLERY</a>
+            <a href="#contact" class="nav-link" data-section="contact">CONTACT</a>
+        </div>
+        <div class="nav-right">
+            <span class="nav-year">© 2026</span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-badge">
+            <span>NEXT-GEN</span>
+            <span>AERIAL</span>
+            <span>SYSTEMS</span>
+        </div>
+        <div class="hero-bg-text">SKY NEX</div>
+        <div class="hero-3d-container" id="hero3d-container"></div>
+        <div class="hero-interact-hint" id="heroHint">
+            <span>DRAG TO EXPLORE</span>
+        </div>
+        <div class="hero-subtitle">
+            <p style="color: #ffffff; font-weight: bold;">FROM SKY TO SCREEN</p>
+            <p style="color: #ffffff; font-weight: bold;">CINEMATIC AERIAL TECHNOLOGY</p>
+        </div>
+        <div class="hero-scroll-indicator">
+            <span class="scroll-text">SCROLL</span>
+            <div class="scroll-line"></div>
+        </div>
+        <div class="hero-meta">
+            <span>00_1</span>
+            <span>FLAGSHIP</span>
+            <span>2026</span>
+        </div>
+    </section>
+
+    <!-- Marquee Strip -->
+    <section class="marquee-section">
+        <div class="marquee-track">
+            <div class="marquee-content">
+                <span>AERIAL</span><span>•</span>
+                <span>CINEMATIC</span><span>•</span>
+                <span>AUTONOMOUS</span><span>•</span>
+                <span>8K VIDEO</span><span>•</span>
+                <span>PRECISION</span><span>•</span>
+                <span>FLIGHT</span><span>•</span>
+                <span>INNOVATION</span><span>•</span>
+                <span>AERIAL</span><span>•</span>
+                <span>CINEMATIC</span><span>•</span>
+                <span>AUTONOMOUS</span><span>•</span>
+                <span>8K VIDEO</span><span>•</span>
+                <span>PRECISION</span><span>•</span>
+                <span>FLIGHT</span><span>•</span>
+                <span>INNOVATION</span><span>•</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fleet Section -->
+    <section class="fleet-section" id="fleet">
+        <div class="section-meta">
+            <span>00_2</span>
+            <span>THE FLEET</span>
+        </div>
+        <div class="fleet-header">
+            <h2 class="massive-text reveal-text">
+                <span class="line"><span class="word">CHOOSE</span></span>
+            </h2>
+            <h2 class="massive-text reveal-text">
+                <span class="line"><span class="word">YOUR</span> <span class="word accent-font">WING</span></span>
+            </h2>
+        </div>
+
+        <div class="fleet-grid">
+            <!-- Drone 1 - PRO -->
+            <div class="fleet-card">
+                <span class="fleet-tag">Flagship Cinematic Camera Drone</span>
+                <h3 class="fleet-name">SKY NEX PRO</h3>
+                <p class="fleet-desc">Elevate Your Vision.</p>
+                <div class="fleet-links">
+                    <a href="#">Learn More ></a>
+                    <a href="#">Buy Now ></a>
+                </div>
+                <div class="fleet-card-img">
+                    <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=900&q=80" alt="SKY NEX Pro Drone">
+                </div>
+            </div>
+
+            <!-- Drone 2 - MINI -->
+            <div class="fleet-card fleet-card-light">
+                <span class="fleet-tag">Beginner-Friendly Camera Drone</span>
+                <h3 class="fleet-name">SKY NEX MINI</h3>
+                <p class="fleet-desc">Just Fly.</p>
+                <div class="fleet-links">
+                    <a href="#">Learn More ></a>
+                    <a href="#">Buy Now ></a>
+                </div>
+                <div class="fleet-card-img">
+                    <img src="https://images.unsplash.com/photo-1524143986875-3b098d78b363?w=900&q=80" alt="SKY NEX Mini Drone">
+                </div>
+            </div>
+
+            <!-- Drone 3 - ENTERPRISE -->
+            <div class="fleet-card fleet-card-full">
+                <span class="fleet-tag">1" CMOS Pocket Gimbal Camera</span>
+                <h3 class="fleet-name">SKY NEX ENTERPRISE</h3>
+                <p class="fleet-desc">The World In My Pocket.</p>
+                <div class="fleet-links">
+                    <a href="#">Learn More ></a>
+                    <a href="#">Buy Now ></a>
+                </div>
+                <div class="fleet-card-img">
+                    <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=1200&q=80" alt="SKY NEX Enterprise Drone">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Quote Section -->
+    <section class="quote-section">
+        <div class="fly-marquee-wrap" id="flyMarquee">
+            <div class="fly-marquee-track" id="flyTrack">
+                <span class="fly-phrase" data-text="FLY BEYOND LIMITS">FLY BEYOND LIMITS</span>
+                <span class="fly-sep">∞</span>
+                <span class="fly-phrase" data-text="FLY BEYOND LIMITS">FLY BEYOND LIMITS</span>
+                <span class="fly-sep">∞</span>
+                <span class="fly-phrase" data-text="FLY BEYOND LIMITS">FLY BEYOND LIMITS</span>
+                <span class="fly-sep">∞</span>
+                <span class="fly-phrase" data-text="FLY BEYOND LIMITS">FLY BEYOND LIMITS</span>
+                <span class="fly-sep">∞</span>
+                <span class="fly-phrase" data-text="FLY BEYOND LIMITS">FLY BEYOND LIMITS</span>
+                <span class="fly-sep">∞</span>
+                <span class="fly-phrase" data-text="FLY BEYOND LIMITS">FLY BEYOND LIMITS</span>
+                <span class="fly-sep">∞</span>
+            </div>
+        </div>
+        <div class="quote-content reveal-up">
+            <p class="quote-text">"The sky is not the limit.<br>It's just the beginning."</p>
+            <span class="quote-author">— SKY NEX Engineering Team, 2026</span>
+        </div>
+    </section>
+
+    <!-- Specs Section -->
+    <section class="specs-section" id="specs">
+        <div class="section-meta">
+            <span>00_3</span>
+            <span>SPECIFICATIONS</span>
+        </div>
+        <div class="specs-header">
+            <h2 class="massive-text reveal-text">
+                <span class="line"><span class="word accent-font">TECH</span></span>
+            </h2>
+            <h2 class="massive-text reveal-text">
+                <span class="line"><span class="word">SPECS</span></span>
+            </h2>
+        </div>
+        <div class="specs-grid">
+            <div class="spec-card reveal-up">
+                <span class="spec-number">01</span>
+                <h4 class="spec-title">8K CAMERA</h4>
+                <p class="spec-detail">Hasselblad sensor with 1-inch CMOS, 12.8 stops of dynamic range, and 8K/30fps recording.</p>
+            </div>
+            <div class="spec-card reveal-up delay-1">
+                <span class="spec-number">02</span>
+                <h4 class="spec-title">46 MIN FLIGHT</h4>
+                <p class="spec-detail">High-density lithium polymer battery providing class-leading endurance under real-world conditions.</p>
+            </div>
+            <div class="spec-card reveal-up delay-2">
+                <span class="spec-number">03</span>
+                <h4 class="spec-title">OMNISENSE™</h4>
+                <p class="spec-detail">360° obstacle avoidance using 12 vision sensors and 2 infrared ToF sensors for total awareness.</p>
+            </div>
+            <div class="spec-card reveal-up delay-3">
+                <span class="spec-number">04</span>
+                <h4 class="spec-title">15KM RANGE</h4>
+                <p class="spec-detail">O4+ transmission delivering stable 1080p/60fps live feed at distances up to 15 kilometers.</p>
+            </div>
+            <div class="spec-card reveal-up">
+                <span class="spec-number">05</span>
+                <h4 class="spec-title">RTK PRECISION</h4>
+                <p class="spec-detail">Centimeter-level positioning accuracy for mapping, surveying, and precision agriculture.</p>
+            </div>
+            <div class="spec-card reveal-up delay-1">
+                <span class="spec-number">06</span>
+                <h4 class="spec-title">AI TRACKING</h4>
+                <p class="spec-detail">ActiveTrack 6.0 with deep learning algorithms for subject recognition and predictive following.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section" id="gallery">
+        <div class="section-meta">
+            <span>00_4</span>
+            <span>SHOT ON SKY NEX</span>
+        </div>
+        <div class="gallery-header">
+            <h2 class="massive-text reveal-text">
+                <span class="line"><span class="word">GAL</span><span class="word italic">LERY</span></span>
+            </h2>
+        </div>
+        <div class="gallery-slider-wrap">
+            <div class="gallery-slider" id="gallerySlider">
+                <div class="gallery-slide">
+                    <img src="https://images.unsplash.com/photo-1439405326854-014607f694d7?w=3840&q=100" alt="Aerial shot of dramatic coastline">
+                    <span class="gallery-label">COASTLINE / 8K</span>
+                </div>
+                <div class="gallery-slide">
+                    <img src="https://images.unsplash.com/photo-1508444845599-5c89863b1c44?w=3840&q=100" alt="Aerial shot of city at night">
+                    <span class="gallery-label">URBAN / NIGHT</span>
+                </div>
+                <div class="gallery-slide">
+                    <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=3840&q=100" alt="Aerial cityscape">
+                    <span class="gallery-label">SKYLINE / HDR</span>
+                </div>
+                <div class="gallery-slide">
+                    <img src="https://images.unsplash.com/photo-1511497584788-876760111969?w=3840&q=100" alt="Aerial view of dense forest wilderness">
+                    <span class="gallery-label">WILDERNESS / 4K</span>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // 6-second auto slider logic (Full width slide)
+            document.addEventListener('DOMContentLoaded', () => {
+                const slider = document.getElementById('gallerySlider');
+                const slides = slider.querySelectorAll('.gallery-slide');
+                if(!slider || slides.length === 0) return;
+
+                let currentIndex = 0;
+
+                function slideToNext() {
+                    currentIndex = (currentIndex + 1) % slides.length;
+                    slider.style.transform = `translateX(-${currentIndex * 100}vw)`;
+                }
+                
+                // Set interval for 3 seconds (3000ms)
+                setInterval(slideToNext, 3000);
+            });
+        </script>
+    </section>
+
+    <!-- CTA / Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="contact-inner">
+            <h2 class="massive-text reveal-text">
+                <span class="line"><span class="word">TAKE</span></span>
+            </h2>
+            <h2 class="massive-text reveal-text">
+                <span class="line"><span class="word italic">FLIGHT</span></span>
+            </h2>
+            <p class="contact-sub reveal-up">Ready to elevate your perspective?<br>Join the next generation of aerial creators.</p>
+            <a href="#" class="cta-button reveal-up delay-1">
+                <span>ORDER NOW</span>
+                <span class="cta-arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <span class="footer-logo-text">SKY NEX</span>
+                <span class="footer-logo-script">Drones</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">Instagram</a>
+                <a href="#">YouTube</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+        <div class="footer-marquee">
+            <div class="footer-marquee-track">
+                <span>AERIAL</span><span>•</span>
+                <span>DRONE</span><span>•</span>
+                <span>FLIGHT</span><span>•</span>
+                <span>CINEMA</span><span>•</span>
+                <span>CAPTURE</span><span>•</span>
+                <span>CREATE</span><span>•</span>
+                <span>EXPLORE</span><span>•</span>
+                <span>INNOVATE</span><span>•</span>
+                <span>AERIAL</span><span>•</span>
+                <span>DRONE</span><span>•</span>
+                <span>FLIGHT</span><span>•</span>
+                <span>CINEMA</span><span>•</span>
+                <span>CAPTURE</span><span>•</span>
+                <span>CREATE</span><span>•</span>
+                <span>EXPLORE</span><span>•</span>
+                <span>INNOVATE</span><span>•</span>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 SKY NEX Drones, All Rights Reserved</span>
+            <span>Designed with precision</span>
+        </div>
+    </footer>
+
+    <script src="hero3d.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
