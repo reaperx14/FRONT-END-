@@ -1429,17 +1429,20 @@ body:hover .cursor-follower {
 
 /* --- Simulator Hero --- */
 .simulator-hero {
-    padding: 10rem 4%;
+    padding: 8rem 4%;
     background: #050505;
     overflow: hidden;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .massive-text {
     font-family: var(--font-accent);
     font-weight: 900;
-    line-height: 0.9;
-    letter-spacing: -0.02em;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: 2px;
     text-transform: uppercase;
+    margin-bottom: 1rem;
 }
 
 .simulator-hero-container {
@@ -1453,7 +1456,7 @@ body:hover .cursor-follower {
 
 #sim-hero-canvas {
     width: 100%;
-    height: 600px;
+    height: 500px;
     background: radial-gradient(circle at center, #111 0%, #050505 70%);
     border-radius: 4px;
 }
