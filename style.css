@@ -1855,3 +1855,81 @@ body:hover .cursor-follower {
     .skeleton-container { grid-template-columns: 1fr; }
     .skeleton-img-wire { height: 350px; }
 }
+
+/* --- Simulator Live Guide --- */
+.sim-live-guide {
+    position: absolute;
+    bottom: 12rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    pointer-events: none;
+    z-index: 2006;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.sim-live-guide.active {
+    opacity: 1;
+}
+
+.guide-instruction {
+    font-family: var(--font-accent);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: var(--accent-orange);
+    text-shadow: 0 0 10px rgba(232, 122, 30, 0.4);
+}
+
+.guide-arrows {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.guide-row {
+    display: flex;
+    gap: 10px;
+}
+
+.guide-arrow {
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.5rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.guide-arrow.active {
+    background: var(--accent-orange);
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 20px rgba(232, 122, 30, 0.6);
+    transform: scale(1.1);
+}
+
+.guide-hint {
+    font-size: 0.65rem;
+    color: #666;
+    letter-spacing: 2px;
+}
+
+/* Pulsing effect for the guide in Learner mode */
+.sim-live-guide.learner-pulse .guide-arrow {
+    animation: guidePulse 2s infinite ease-in-out;
+}
+
+@keyframes guidePulse {
+    0% { border-color: rgba(255, 255, 255, 0.2); }
+    50% { border-color: rgba(232, 122, 30, 0.5); }
+    100% { border-color: rgba(255, 255, 255, 0.2); }
+}
