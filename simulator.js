@@ -238,32 +238,6 @@ class DroneSimulator {
         
         const battery = Math.max(0, 98 - (performance.now() / 10000)).toFixed(0);
         document.getElementById('hud-battery').textContent = battery + '%';
-
-        this.updateGuide();
-    }
-
-    updateGuide() {
-        const guide = document.getElementById('simLiveGuide');
-        if (!guide) return;
-
-        // Show only in Learner/Intermediate
-        if (this.isActive && (this.mode === 'learner' || this.mode === 'intermediate')) {
-            guide.classList.add('active');
-            if (this.mode === 'learner') guide.classList.add('learner-pulse');
-        } else {
-            guide.classList.remove('active', 'learner-pulse');
-        }
-
-        // Highlight arrows based on input
-        const up = document.getElementById('guide-up');
-        const down = document.getElementById('guide-down');
-        const left = document.getElementById('guide-left');
-        const right = document.getElementById('guide-right');
-
-        if (this.keys['ArrowUp'] || this.keys['KeyW']) up.classList.add('active'); else up.classList.remove('active');
-        if (this.keys['ArrowDown'] || this.keys['KeyS']) down.classList.add('active'); else down.classList.remove('active');
-        if (this.keys['KeyA'] || this.keys['KeyQ']) left.classList.add('active'); else left.classList.remove('active');
-        if (this.keys['KeyD'] || this.keys['KeyE']) right.classList.add('active'); else right.classList.remove('active');
     }
 
     crash() {
