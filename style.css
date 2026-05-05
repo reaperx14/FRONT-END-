@@ -743,17 +743,86 @@ body:hover .cursor-follower {
     filter: grayscale(10%) contrast(1.1);
 }
 
-.gallery-label {
+.gallery-info {
     position: absolute;
-    bottom: 1.5rem;
-    left: 1.5rem;
-    font-size: 0.65rem;
-    letter-spacing: 3px;
+    bottom: 4rem;
+    left: 4%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    z-index: 10;
+}
+
+.gallery-label {
+    align-self: flex-start;
     color: var(--text-primary);
-    background: rgba(10, 10, 10, 0.6);
+    background: rgba(10, 10, 10, 0.7);
     backdrop-filter: blur(10px);
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.2rem;
     border-radius: 2px;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.gallery-drone-meta {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(20px);
+    padding: 1.5rem 2.5rem;
+    border-left: 4px solid var(--accent-orange);
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery-slide:hover .gallery-drone-meta {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.gallery-drone-meta p {
+    font-size: 0.85rem;
+    color: #999;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.gallery-drone-meta p strong {
+    color: #fff;
+    font-family: var(--font-accent);
+    margin-left: 0.5rem;
+    font-weight: 400;
+}
+
+.gallery-btn {
+    font-size: 0.7rem;
+    color: var(--accent-orange);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 900;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+}
+
+.gallery-btn::after {
+    content: '→';
+    font-size: 1.1rem;
+    transition: transform 0.3s;
+}
+
+.gallery-btn:hover {
+    color: #fff;
+}
+
+.gallery-btn:hover::after {
+    transform: translateX(5px);
 }
 
 /* --- Transition Marquee --- */
