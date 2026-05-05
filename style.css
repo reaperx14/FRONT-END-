@@ -491,11 +491,30 @@ body:hover .cursor-follower {
     font-size: 0.95rem;
     color: #ffffff;
     font-weight: 500;
-    transition: color 0.3s;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
 }
 
 .fleet-links a:hover {
     color: var(--accent-orange);
+}
+
+.fleet-links a.btn-buy-highlight {
+    background: linear-gradient(135deg, var(--accent-orange-light), var(--accent-orange), var(--accent-red));
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+.fleet-links a.btn-buy-highlight:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 69, 0, 0.4);
+    color: #fff;
 }
 
 .fleet-card-img {
@@ -1058,6 +1077,31 @@ body:hover .cursor-follower {
     }
 
     .cursor, .cursor-follower { display: none; }
+}
+
+/* Product Back Button */
+.btn-back-wrap {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 4%;
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 900;
+    transition: color 0.3s;
+    text-decoration: none;
+}
+
+.btn-back:hover {
+    color: #fff;
 }
 
 /* --- Product Page Layout --- */
