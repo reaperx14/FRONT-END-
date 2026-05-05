@@ -178,4 +178,26 @@ document.addEventListener('DOMContentLoaded', () => {
         // Initial calc
         updatePrice();
     }
+
+    // --- Page Transition Loader (Fleet to Product) ---
+    const buyBtns = document.querySelectorAll('.btn-buy-highlight');
+    const skeletonOverlay = document.getElementById('skeletonOverlay');
+
+    if (buyBtns.length > 0 && skeletonOverlay) {
+        buyBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault(); // Stop immediate jump
+                const targetUrl = btn.getAttribute('href');
+
+                // Show skeleton
+                skeletonOverlay.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Simulate loading then redirect
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 1200);
+            });
+        });
+    }
 });
