@@ -461,17 +461,35 @@
     <script src="simulator.js"></script>
     <script src="script.js"></script>
 
-    <!-- Skeleton Transition Overlay -->
+    <!-- Unique Technical Skeleton Transition -->
     <div class="skeleton-overlay" id="skeletonOverlay">
+        <div class="skeleton-grid-bg"></div>
         <div class="skeleton-container">
-            <div class="skeleton-block skeleton-img"></div>
-            <div class="skeleton-content">
-                <div class="skeleton-block skeleton-title"></div>
-                <div class="skeleton-block skeleton-price"></div>
-                <div class="skeleton-block skeleton-text"></div>
-                <div class="skeleton-block skeleton-text"></div>
-                <div class="skeleton-block skeleton-text"></div>
-                <div class="skeleton-block skeleton-btn"></div>
+            <div class="skeleton-wireframe skeleton-img-wire">
+                <div class="skeleton-scan-line"></div>
+                <div class="skeleton-telemetry">
+                    <span>SYS_CORE_V8.0</span>
+                    <span>DRONE_SCAN_ACTIVE</span>
+                    <span>LINK_ESTABLISHED_99.8%</span>
+                </div>
+            </div>
+            <div class="skeleton-details-wire">
+                <div>
+                    <div class="flicker-text">> ANALYZING_MODEL_STRUCTURE</div>
+                    <div class="skeleton-wireframe wire-title">
+                        <div class="skeleton-scan-line"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flicker-text">> PRICE_TELEMETRY</div>
+                    <div class="skeleton-wireframe wire-price"></div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <div class="skeleton-wireframe wire-para"></div>
+                    <div class="skeleton-wireframe wire-para"></div>
+                    <div class="skeleton-wireframe wire-para" style="width: 60%;"></div>
+                </div>
+                <div class="skeleton-wireframe wire-btn"></div>
             </div>
         </div>
     </div>
