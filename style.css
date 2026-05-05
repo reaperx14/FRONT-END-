@@ -430,6 +430,12 @@ body:hover .cursor-follower {
     margin: 0 auto;
 }
 
+@media (max-width: 1024px) {
+    .fleet-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 .fleet-card {
     background: #111111;
     padding: 4rem 2rem 0 2rem;
@@ -780,6 +786,12 @@ body:hover .cursor-follower {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .contact-section {
+        padding: 8rem 0;
+    }
 }
 
 .contact-glow {
