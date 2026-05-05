@@ -1434,6 +1434,14 @@ body:hover .cursor-follower {
     overflow: hidden;
 }
 
+.massive-text {
+    font-family: var(--font-accent);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}
+
 .simulator-hero-container {
     max-width: 1400px;
     margin: 0 auto;
