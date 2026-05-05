@@ -125,4 +125,21 @@ document.addEventListener('DOMContentLoaded', () => {
             ctaBtn.style.transition = 'none';
         });
     }
+
+    // --- Product Page Thumbnail Switching ---
+    const mainImg = document.querySelector('.product-main-img');
+    const thumbs = document.querySelectorAll('.thumb');
+
+    if (mainImg && thumbs.length > 0) {
+        thumbs.forEach(thumb => {
+            thumb.addEventListener('click', () => {
+                const newSrc = thumb.querySelector('img').src;
+                mainImg.src = newSrc.replace('w=300', 'w=1200'); // Swap for high-res
+                
+                // Update active state
+                thumbs.forEach(t => t.classList.remove('active'));
+                thumb.classList.add('active');
+            });
+        });
+    }
 });
