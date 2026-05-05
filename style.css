@@ -818,7 +818,7 @@ body:hover .cursor-follower {
 .ready-text {
     font-family: var(--font-accent);
     font-weight: 900;
-    font-size: clamp(4rem, 8vw, 8rem);
+    font-size: clamp(2.5rem, 6vw, 8rem);
     color: #ffffff;
     letter-spacing: -0.02em;
     text-transform: uppercase;
