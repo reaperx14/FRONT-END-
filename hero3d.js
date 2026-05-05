@@ -53,26 +53,23 @@ function initHero3D() {
 }
 
 function setupLighting() {
-    const ambient = new THREE.AmbientLight(0x666666, 0.8);
-    scene.add(ambient);
+    // Soft sky light for natural depth
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
+    scene.add(hemiLight);
 
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.5);
-    keyLight.position.set(5, 6, 4);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
+    keyLight.position.set(5, 6, 8);
     scene.add(keyLight);
 
-    const fillLight = new THREE.DirectionalLight(0xaabbcc, 0.8);
+    const fillLight = new THREE.DirectionalLight(0xaabbcc, 1.2);
     fillLight.position.set(-5, 2, -3);
     scene.add(fillLight);
 
-    const rimLight = new THREE.PointLight(0xffffff, 1.5, 20);
-    rimLight.position.set(-4, 2, -4);
+    const rimLight = new THREE.PointLight(0xffffff, 3.0, 30);
+    rimLight.position.set(-6, 4, -8);
     scene.add(rimLight);
 
-    const topLight = new THREE.PointLight(0xffffff, 0.8, 15);
-    topLight.position.set(0, 7, 0);
-    scene.add(topLight);
-
-    glowLight = new THREE.PointLight(0xffffff, 0.0, 8); // Starts at 0, ramps up during assembly
+    glowLight = new THREE.PointLight(0xff6b00, 0, 10);
     glowLight.position.set(0, -0.5, 1.5);
     scene.add(glowLight);
 }
@@ -82,7 +79,7 @@ function createMaterial(color, metalness, roughness) {
         color: color,
         metalness: metalness,
         roughness: roughness,
-        envMapIntensity: 1.5
+        emissive: new THREE.Color(color).multiplyScalar(0.02)
     });
 }
 
@@ -90,160 +87,111 @@ function buildDrone() {
     droneGroup = new THREE.Group();
     scene.add(droneGroup);
 
-    // "greyish metalic colour"
-    const metallicGrey = createMaterial(0x9999a0, 0.85, 0.3);
-    const metallicDarkGrey = createMaterial(0x555558, 0.8, 0.4);
-    const brushedSteel = createMaterial(0xb0b0b0, 0.95, 0.2);
-    const blackMetal = createMaterial(0x222222, 0.7, 0.5);
+    // Realistic Industrial Palette
+    const metallicGrey = createMaterial(0x333336, 0.95, 0.15); 
+    const metallicDarkGrey = createMaterial(0x1a1a1c, 0.85, 0.25);
+    const brushedSteel = createMaterial(0x88888b, 0.95, 0.1);
+    const blackMetal = createMaterial(0x050505, 0.9, 0.35);
     const glassMat = createMaterial(0x000000, 1.0, 0.0);
     glassMat.transparent = true;
-    glassMat.opacity = 0; // Start invisible
+    glassMat.opacity = 0;
 
-    // Helper to store parts for assembly animation
     const place = (mesh, targetPos, delay, explodedOffset) => {
         const startPos = {
             x: targetPos.x + explodedOffset.x,
             y: targetPos.y + explodedOffset.y,
             z: targetPos.z + explodedOffset.z
         };
-        
         mesh.position.set(startPos.x, startPos.y, startPos.z);
-        
-        // Clone material so we can animate opacity per-mesh without affecting others
         mesh.material = mesh.material.clone();
         mesh.material.transparent = true;
         mesh.material.opacity = 0;
-        // Save original opacity target
         mesh.userData.targetOpacity = (mesh.material === glassMat) ? 0.8 : 1.0;
-        
         droneGroup.add(mesh);
-        
-        droneParts.push({
-            mesh: mesh,
-            targetPos: targetPos,
-            startPos: startPos,
-            delay: delay,
-            isGroup: false
-        });
+        droneParts.push({ mesh, targetPos, startPos, delay, isGroup: false });
     };
 
-    // --- MAIN BODY (Cinewhoop style - Natural/Aerodynamic) ---
-    // Smooth capsule chassis using a stretched sphere for broad compatibility
-    const mainBodyGeo = new THREE.SphereGeometry(0.18, 32, 32);
-    mainBodyGeo.scale(1.0, 0.85, 2.2); // Stretch into an aerodynamic pod
-    const mainBody = new THREE.Mesh(mainBodyGeo, metallicGrey);
-    place(mainBody, { x: 0, y: 0.12, z: 0 }, 0.0, { x: 0, y: 5, z: 0 });
+    // --- MAIN CHASSIS (Sleek Modular Design) ---
+    const lowerBodyGeo = new THREE.SphereGeometry(0.2, 32, 16);
+    lowerBodyGeo.scale(1.2, 0.4, 2.2);
+    const lowerBody = new THREE.Mesh(lowerBodyGeo, metallicGrey);
+    place(lowerBody, { x: 0, y: 0.1, z: 0 }, 0.0, { x: 0, y: 5, z: 0 });
 
-    const batteryGeo = new THREE.BoxGeometry(0.24, 0.1, 0.3);
-    const battery = new THREE.Mesh(batteryGeo, metallicDarkGrey);
-    place(battery, { x: 0, y: 0.28, z: -0.1 }, 0.4, { x: 0, y: 5, z: -2 });
+    const upperBodyGeo = new THREE.SphereGeometry(0.18, 32, 16);
+    upperBodyGeo.scale(1.1, 0.35, 1.8);
+    const upperBody = new THREE.Mesh(upperBodyGeo, metallicDarkGrey);
+    place(upperBody, { x: 0, y: 0.2, z: -0.1 }, 0.3, { x: 0, y: 5, z: -2 });
 
-    // --- CAMERA SYSTEM ---
-    const camHousingGeo = new THREE.BoxGeometry(0.22, 0.25, 0.22);
+    // GPS Module (The "Puck")
+    const gpsGeo = new THREE.CylinderGeometry(0.08, 0.08, 0.04, 32);
+    const gps = new THREE.Mesh(gpsGeo, blackMetal);
+    place(gps, { x: 0, y: 0.28, z: -0.4 }, 0.6, { x: 0, y: 5, z: -3 });
+
+    // Heat Vents (Small details)
+    const ventGeo = new THREE.BoxGeometry(0.12, 0.02, 0.05);
+    for(let i=0; i<3; i++) {
+        const vent = new THREE.Mesh(ventGeo, blackMetal);
+        place(vent, { x: 0, y: 0.22, z: -0.1 + (i*0.1) }, 0.8 + (i*0.1), { x: 0, y: 2, z: 0 });
+    }
+
+    // --- GIMBAL & CAMERA ---
+    const gimbalBaseGeo = new THREE.CylinderGeometry(0.05, 0.05, 0.1, 16);
+    const gimbalBase = new THREE.Mesh(gimbalBaseGeo, blackMetal);
+    place(gimbalBase, { x: 0, y: 0.02, z: 0.4 }, 1.0, { x: 0, y: -2, z: 3 });
+
+    const camHousingGeo = new THREE.SphereGeometry(0.12, 24, 24);
     const camHousing = new THREE.Mesh(camHousingGeo, blackMetal);
-    place(camHousing, { x: 0, y: 0.05, z: 0.4 }, 0.6, { x: 0, y: -2, z: 4 });
+    place(camHousing, { x: 0, y: -0.05, z: 0.45 }, 1.2, { x: 0, y: -2, z: 4 });
 
-    const lensGeo = new THREE.CylinderGeometry(0.08, 0.08, 0.05, 32);
+    const lensGeo = new THREE.CylinderGeometry(0.06, 0.06, 0.03, 32);
     const lens = new THREE.Mesh(lensGeo, glassMat);
     lens.rotation.x = Math.PI / 2;
-    place(lens, { x: 0, y: 0.05, z: 0.52 }, 0.8, { x: 0, y: -2, z: 4 });
-    // Override target opacity for glass
-    droneParts[droneParts.length - 1].mesh.userData.targetOpacity = 0.8;
+    place(lens, { x: 0, y: -0.05, z: 0.55 }, 1.4, { x: 0, y: -2, z: 5 });
+    droneParts[droneParts.length-1].mesh.userData.targetOpacity = 0.9;
 
-    const lensRingGeo = new THREE.TorusGeometry(0.09, 0.015, 16, 32);
-    const lensRing = new THREE.Mesh(lensRingGeo, brushedSteel);
-    place(lensRing, { x: 0, y: 0.05, z: 0.51 }, 0.9, { x: 0, y: -2, z: 4 });
-
-    // --- PROP GUARDS & MOTORS ---
-    const guardRadius = 0.32;
-    const guardTube = 0.035;
-    
+    // --- ARMS & PROPULSION ---
     const armConfigs = [
-        { x: 1, z: 1, rot: -Math.PI / 4, delay: 1.0, ox: 4, oz: 4 },
-        { x: -1, z: 1, rot: Math.PI / 4, delay: 1.2, ox: -4, oz: 4 },
-        { x: 1, z: -1, rot: Math.PI / 4, delay: 1.4, ox: 4, oz: -4 },
-        { x: -1, z: -1, rot: -Math.PI / 4, delay: 1.6, ox: -4, oz: -4 }
+        { x: 1, z: 1, delay: 1.6, ox: 5, oz: 5 },
+        { x: -1, z: 1, delay: 1.8, ox: -5, oz: 5 },
+        { x: 1, z: -1, delay: 2.0, ox: 5, oz: -5 },
+        { x: -1, z: -1, delay: 2.2, ox: -5, oz: -5 }
     ];
 
-    armConfigs.forEach((cfg) => {
-        const px = cfg.x * 0.34;
-        const pz = cfg.z * 0.32;
-        const offX = cfg.ox;
-        const offZ = cfg.oz;
-
-        const guardGeo = new THREE.TorusGeometry(guardRadius, guardTube, 16, 48);
-        const guard = new THREE.Mesh(guardGeo, metallicGrey);
-        guard.rotation.x = Math.PI / 2;
-        place(guard, { x: px, y: 0.1, z: pz }, cfg.delay, { x: offX, y: 0, z: offZ });
-
-        const bumperGeo = new THREE.TorusGeometry(guardRadius + 0.01, 0.01, 8, 48);
-        const bumper = new THREE.Mesh(bumperGeo, metallicDarkGrey);
-        bumper.rotation.x = Math.PI / 2;
-        place(bumper, { x: px, y: 0.1, z: pz }, cfg.delay + 0.1, { x: offX, y: 0, z: offZ });
-
-        const strutGeo = new THREE.BoxGeometry(0.04, 0.02, guardRadius * 2);
-        const strut1 = new THREE.Mesh(strutGeo, metallicGrey);
-        strut1.rotation.y = Math.PI / 4;
-        place(strut1, { x: px, y: 0.05, z: pz }, cfg.delay + 0.2, { x: offX, y: -2, z: offZ });
-
-        const strut2 = new THREE.Mesh(strutGeo, metallicGrey);
-        strut2.rotation.y = -Math.PI / 4;
-        place(strut2, { x: px, y: 0.05, z: pz }, cfg.delay + 0.2, { x: offX, y: -2, z: offZ });
-
-        const motorGeo = new THREE.CylinderGeometry(0.06, 0.06, 0.12, 24);
-        const motor = new THREE.Mesh(motorGeo, metallicDarkGrey);
-        place(motor, { x: px, y: 0.06, z: pz }, cfg.delay + 0.3, { x: offX, y: 2, z: offZ });
-
-        const motorTopGeo = new THREE.CylinderGeometry(0.04, 0.04, 0.04, 24);
-        const motorTop = new THREE.Mesh(motorTopGeo, brushedSteel);
-        place(motorTop, { x: px, y: 0.13, z: pz }, cfg.delay + 0.4, { x: offX, y: 2, z: offZ });
-
-        // Propeller Group
-        const propGroup = new THREE.Group();
-        const bladeCount = 5;
+    armConfigs.forEach(cfg => {
+        const px = cfg.x * 0.4;
+        const pz = cfg.z * 0.45;
         
-        for(let b=0; b<bladeCount; b++) {
-            const bladeGeo = new THREE.BoxGeometry(guardRadius * 0.88, 0.005, 0.07, 4, 1, 1);
-            const posAttr = bladeGeo.attributes.position;
-            for(let j=0; j<posAttr.count; j++) {
-                const x = posAttr.getX(j);
-                const z = posAttr.getZ(j);
-                posAttr.setY(j, posAttr.getY(j) + x * z * 0.7);
-            }
-            bladeGeo.computeVertexNormals();
+        // Motor Arm
+        const armGeo = new THREE.BoxGeometry(0.08, 0.04, 0.5);
+        const arm = new THREE.Mesh(armGeo, metallicGrey);
+        arm.rotation.y = Math.atan2(px, pz);
+        place(arm, { x: px/2, y: 0.12, z: pz/2 }, cfg.delay, { x: cfg.ox, y: 0, z: cfg.oz });
 
-            const blade = new THREE.Mesh(bladeGeo, blackMetal.clone());
-            blade.material.transparent = true;
-            blade.material.opacity = 0;
-            blade.userData.targetOpacity = 1.0;
-            blade.geometry.translate(guardRadius * 0.44, 0, 0); 
-            
-            const angle = (b / bladeCount) * Math.PI * 2;
-            blade.rotation.y = angle;
-            
-            propGroup.add(blade);
-        }
+        // Motor
+        const motorGeo = new THREE.CylinderGeometry(0.07, 0.07, 0.1, 24);
+        const motor = new THREE.Mesh(motorGeo, metallicDarkGrey);
+        place(motor, { x: px, y: 0.15, z: pz }, cfg.delay + 0.2, { x: cfg.ox, y: 2, z: cfg.oz });
 
-        const hubGeo = new THREE.CylinderGeometry(0.025, 0.025, 0.03, 16);
-        const hub = new THREE.Mesh(hubGeo, brushedSteel.clone());
-        hub.material.transparent = true;
-        hub.material.opacity = 0;
-        hub.userData.targetOpacity = 1.0;
-        propGroup.add(hub);
+        // Propellers
+        const propGroup = new THREE.Group();
+        const bladeGeo = new THREE.BoxGeometry(0.45, 0.005, 0.04);
+        const blade1 = new THREE.Mesh(bladeGeo, blackMetal.clone());
+        const blade2 = new THREE.Mesh(bladeGeo, blackMetal.clone());
+        blade2.rotation.y = Math.PI / 2;
+        
+        [blade1, blade2].forEach(b => {
+            b.material.transparent = true;
+            b.material.opacity = 0;
+            b.userData.targetOpacity = 0.8;
+            propGroup.add(b);
+        });
 
         propGroup.userData.isPropeller = true;
         propGroup.userData.spinDir = (cfg.x * cfg.z > 0) ? 1 : -1;
-
-        propGroup.position.set(px + offX, 0.14 + 5, pz + offZ);
+        
+        propGroup.position.set(px + cfg.ox, 0.22 + 5, pz + cfg.oz);
         droneGroup.add(propGroup);
-
-        droneParts.push({
-            mesh: propGroup,
-            targetPos: { x: px, y: 0.14, z: pz },
-            startPos: { x: px + offX, y: 0.14 + 5, z: pz + offZ },
-            delay: cfg.delay + 0.5,
-            isGroup: true
-        });
+        droneParts.push({ mesh: propGroup, targetPos: { x: px, y: 0.22, z: pz }, startPos: { x: px + cfg.ox, y: 0.22 + 5, z: pz + cfg.oz }, delay: cfg.delay + 0.4, isGroup: true });
     });
 }
 
