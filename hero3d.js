@@ -53,26 +53,23 @@ function initHero3D() {
 }
 
 function setupLighting() {
-    const ambient = new THREE.AmbientLight(0x666666, 0.8);
-    scene.add(ambient);
+    // Soft sky light for natural depth
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
+    scene.add(hemiLight);
 
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.5);
-    keyLight.position.set(5, 6, 4);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.0);
+    keyLight.position.set(5, 6, 8);
     scene.add(keyLight);
 
-    const fillLight = new THREE.DirectionalLight(0xaabbcc, 0.8);
+    const fillLight = new THREE.DirectionalLight(0xaabbcc, 1.2);
     fillLight.position.set(-5, 2, -3);
     scene.add(fillLight);
 
-    const rimLight = new THREE.PointLight(0xffffff, 1.5, 20);
-    rimLight.position.set(-4, 2, -4);
+    const rimLight = new THREE.PointLight(0xffffff, 2.5, 30);
+    rimLight.position.set(-6, 4, -8);
     scene.add(rimLight);
 
-    const topLight = new THREE.PointLight(0xffffff, 0.8, 15);
-    topLight.position.set(0, 7, 0);
-    scene.add(topLight);
-
-    glowLight = new THREE.PointLight(0xffffff, 0.0, 8); // Starts at 0, ramps up during assembly
+    glowLight = new THREE.PointLight(0xff6b00, 0, 10);
     glowLight.position.set(0, -0.5, 1.5);
     scene.add(glowLight);
 }
@@ -82,7 +79,7 @@ function createMaterial(color, metalness, roughness) {
         color: color,
         metalness: metalness,
         roughness: roughness,
-        envMapIntensity: 1.5
+        emissive: new THREE.Color(color).multiplyScalar(0.02) // Subtle depth glow
     });
 }
 
@@ -90,11 +87,11 @@ function buildDrone() {
     droneGroup = new THREE.Group();
     scene.add(droneGroup);
 
-    // "greyish metalic colour"
-    const metallicGrey = createMaterial(0x9999a0, 0.85, 0.3);
-    const metallicDarkGrey = createMaterial(0x555558, 0.8, 0.4);
-    const brushedSteel = createMaterial(0xb0b0b0, 0.95, 0.2);
-    const blackMetal = createMaterial(0x222222, 0.7, 0.5);
+    // High-contrast industrial materials
+    const metallicGrey = createMaterial(0x333336, 0.9, 0.15); 
+    const metallicDarkGrey = createMaterial(0x1a1a1c, 0.85, 0.2);
+    const brushedSteel = createMaterial(0x88888b, 0.95, 0.1);
+    const blackMetal = createMaterial(0x050505, 0.9, 0.35);
     const glassMat = createMaterial(0x000000, 1.0, 0.0);
     glassMat.transparent = true;
     glassMat.opacity = 0; // Start invisible
@@ -137,6 +134,15 @@ function buildDrone() {
     const batteryGeo = new THREE.BoxGeometry(0.24, 0.1, 0.3);
     const battery = new THREE.Mesh(batteryGeo, metallicDarkGrey);
     place(battery, { x: 0, y: 0.28, z: -0.1 }, 0.4, { x: 0, y: 5, z: -2 });
+
+    // --- STATUS LEDs ---
+    const ledGeo = new THREE.SphereGeometry(0.02, 16, 16);
+    const orangeLedMat = new THREE.MeshStandardMaterial({ color: 0xff6b00, emissive: 0xff6b00, emissiveIntensity: 2 });
+    
+    const led1 = new THREE.Mesh(ledGeo, orangeLedMat);
+    place(led1, { x: 0.1, y: 0.2, z: 0.3 }, 1.5, { x: 0, y: 1, z: 0 });
+    const led2 = new THREE.Mesh(ledGeo, orangeLedMat);
+    place(led2, { x: -0.1, y: 0.2, z: 0.3 }, 1.6, { x: 0, y: 1, z: 0 });
 
     // --- CAMERA SYSTEM ---
     const camHousingGeo = new THREE.BoxGeometry(0.22, 0.25, 0.22);
