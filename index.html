@@ -287,6 +287,13 @@
                     slider.style.transform = `translateX(-${currentIndex * 100}vw)`;
                 }
                
+
+                // Set interval for 3 seconds (3000ms)
+                setInterval(slideToNext, 3000);
+            });
+        </script>
+    </section>
+
     <!-- Simulator Hero Section -->
     <section class="simulator-hero" id="simulator">
         <div class="simulator-hero-container">
@@ -380,11 +387,7 @@
 
         <div id="sim-canvas-container"></div>
     </div>
-                // Set interval for 3 seconds (3000ms)
-                setInterval(slideToNext, 3000);
-            });
-        </script>
-    </section>
+
 
     <!-- Transition Marquee -->
     <div class="transition-marquee">
