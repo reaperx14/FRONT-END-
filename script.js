@@ -142,4 +142,40 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // --- Dynamic Pricing ---
+    const priceDisplay = document.querySelector('.product-price');
+    const optionBtns = document.querySelectorAll('.option-btn');
+
+    if (priceDisplay && optionBtns.length > 0) {
+        function updatePrice() {
+            let basePrice = 0;
+            let addedPrice = 0;
+
+            const activeBtns = document.querySelectorAll('.option-btn.active');
+            activeBtns.forEach(btn => {
+                if (btn.dataset.price) basePrice = parseFloat(btn.dataset.price);
+                if (btn.dataset.priceAdd) addedPrice += parseFloat(btn.dataset.priceAdd);
+            });
+
+            const totalPrice = basePrice + addedPrice;
+            priceDisplay.textContent = `$${totalPrice.toLocaleString()}.00`;
+        }
+
+        optionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Find siblings in the same group and deactivate them
+                const group = btn.closest('.option-grid');
+                group.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+                
+                // Activate clicked button
+                btn.classList.add('active');
+                
+                updatePrice();
+            });
+        });
+        
+        // Initial calc
+        updatePrice();
+    }
 });
